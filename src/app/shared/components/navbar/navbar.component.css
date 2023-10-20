@@ -1,0 +1,24 @@
+:host ::ng-deep .p-menubar{
+  background:#008c44 !important;
+  color:#ffffff !important;
+  padding-right:3rem !important;
+  padding-left:3rem !important;
+}
+:host ::ng-deep .p-menubar .p-menuitem-link{
+  color:#ffffff !important;
+}
+:host ::ng-deep .p-menubar .p-menuitem-link .p-menuitem-text{
+  color:#ffffff !important
+}
+:host ::ng-deep .p-menubar .p-menuitem-link .p-menuitem-icon{
+  color:#ffffff !important;
+}
+
+.user-icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon-container i {
+  margin-right: 5px;
+}

@@ -1,0 +1,11 @@
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+      <h3>SANYU</h3>
+  </ng-template>
+  <ng-template pTemplate="end" *ngIf="showLogout">
+    <div class="user-icon-container">
+      <i class="pi pi-user"></i>
+      <p>Cerrar Sesión</p>
+    </div>
+  </ng-template>
+</p-menubar>
