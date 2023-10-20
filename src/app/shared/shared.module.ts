@@ -4,10 +4,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -15,6 +17,7 @@ import { MenubarModule } from 'primeng/menubar';
     MenubarModule
   ],
   exports: [
+    FooterComponent,
     NavbarComponent
   ]
 })
