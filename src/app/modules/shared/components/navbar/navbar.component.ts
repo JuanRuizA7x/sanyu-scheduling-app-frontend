@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../../../modules/auth/services/auth.service';
+import { AuthService } from '../../../auth/services/auth.service';
 import { roles } from '../../../../models/roles.const';
 
 
@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
       if (newRole === roles.administrator) {
         this.getAdministratorItems();
         this.showLogout = true;
-      } else if (newRole === roles.contractor) {
+      } else if (newRole === roles.supervisorContractor || newRole === roles.fieldContractor) {
         this.getContractorItems();
         this.showLogout = true;
       } else {

@@ -1,4 +1,5 @@
 export const roles = {
   administrator: 'Administrador',
-  contractor: 'Contratista'
+  supervisorContractor: 'Contratista Supervisor',
+  fieldContractor: 'Contratista de Campo'
 }

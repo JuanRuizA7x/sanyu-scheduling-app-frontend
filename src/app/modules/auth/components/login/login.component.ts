@@ -27,7 +27,7 @@ export class LoginComponent {
 
   createForm(): void {
     this.authForm = this.formBuilder.group({
-      email: ['juan.ruiz@gmail.com', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
+      email: ['juan.ruiz.22.03.00@gmail.com', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
       password: ['12345', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]]
     });
   }
@@ -44,7 +44,7 @@ export class LoginComponent {
 
           if (userRole === roles.administrator) {
             this.router.navigateByUrl('/administrator');
-          } else if (userRole === roles.contractor) {
+          } else if (userRole === roles.supervisorContractor || userRole === roles.fieldContractor) {
             this.router.navigateByUrl('/contractor');
           } else {
             this.router.navigateByUrl('/auth/logout');

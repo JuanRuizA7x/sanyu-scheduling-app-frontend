@@ -14,9 +14,10 @@ export class AuthService {
 
   private backendUrl: String = environment.backendUrl;
   private user: User | undefined = undefined;
+  role = new BehaviorSubject<string | undefined>(undefined);
   private tokenKey: string = 'authToken';
   private emailKey: string = 'userEmail';
-  role = new BehaviorSubject<string | undefined>(undefined);
+  private roleKey: string = 'userRole';
 
   constructor(private httpClient: HttpClient) {
     if(this.isAuthenticated()) {
@@ -34,8 +35,8 @@ export class AuthService {
     return this.httpClient.post<AuthResponse>(requestUrl, requestBody).pipe(
       switchMap((response) => {
         if (response && response.email && response.token) {
-          sessionStorage.setItem(this.emailKey, response.email);
           sessionStorage.setItem(this.tokenKey, response.token);
+          sessionStorage.setItem(this.emailKey, response.email);
           return this.getUserInfo();
         } else {
           return of(false);
@@ -46,8 +47,7 @@ export class AuthService {
   }
 
   logout(): void {
-    sessionStorage.removeItem(this.emailKey);
-    sessionStorage.removeItem(this.tokenKey);
+    sessionStorage.clear();
     this.user = undefined;
     this.role.next(undefined);
   }
@@ -79,7 +79,7 @@ export class AuthService {
     const email = sessionStorage.getItem(this.emailKey);
     const token = sessionStorage.getItem(this.tokenKey);
 
-    if (!token) {
+    if (!token || !email) {
       return of(false);
     }
 
@@ -94,6 +94,7 @@ export class AuthService {
         if (response) {
           this.user = response;
           this.role.next(this.user.role.name);
+          sessionStorage.setItem(this.roleKey, this.user.role.name);
           return true;
         } else {
           return false;
