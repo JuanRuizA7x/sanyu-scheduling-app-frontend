@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
+import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { FooterComponent } from './components/footer/footer.component';
@@ -12,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent
   ],
   imports: [
+    ButtonModule,
     CommonModule,
     InputTextModule,
     MenubarModule

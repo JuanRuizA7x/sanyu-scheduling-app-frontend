@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable, of, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, switchMap } from 'rxjs';
 
 import { environment } from '../../../environments/environment.dev';
 import { AuthRequest } from '../../../models/auth-request.interface';
@@ -14,10 +14,14 @@ export class AuthService {
 
   private backendUrl: String = environment.backendUrl;
   private user: User | undefined = undefined;
-  private tokenKey = 'authToken';
+  private tokenKey: string = 'authToken';
+  private emailKey: string = 'userEmail';
+  role = new BehaviorSubject<string | undefined>(undefined);
 
   constructor(private httpClient: HttpClient) {
-    console.log(this.backendUrl);
+    if(this.isAuthenticated()) {
+      this.getUserInfo().subscribe();
+    }
   }
 
   login(email: string, password: string): Observable<boolean> {
@@ -29,28 +33,37 @@ export class AuthService {
 
     return this.httpClient.post<AuthResponse>(requestUrl, requestBody).pipe(
       switchMap((response) => {
-        if (response && response.token) {
-          localStorage.setItem(this.tokenKey, response.token);
-          console.log(response)
-          return this.getUserInfo(email);
+        if (response && response.email && response.token) {
+          sessionStorage.setItem(this.emailKey, response.email);
+          sessionStorage.setItem(this.tokenKey, response.token);
+          return this.getUserInfo();
         } else {
           return of(false);
         }
       }),
-      catchError(error => {
-        console.error('Error al obtener la información del usuario:', error);
-        return of(false);
-      })
+      catchError(error => of(false))
     );
   }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
+    sessionStorage.removeItem(this.emailKey);
+    sessionStorage.removeItem(this.tokenKey);
     this.user = undefined;
+    this.role.next(undefined);
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
+
+    const email = !!sessionStorage.getItem(this.emailKey);
+    const token = !!sessionStorage.getItem(this.tokenKey);
+
+    if (email && token) {
+      return true;
+    } else {
+      this.logout();
+      return false;
+    }
+
   }
 
   getLoggedInUser(): User | undefined {
@@ -61,16 +74,17 @@ export class AuthService {
     return this.user ? this.user.role.name : undefined;
   }
 
-  private getUserInfo(email: string): Observable<boolean> {
+  private getUserInfo(): Observable<boolean> {
 
-    const token = localStorage.getItem(this.tokenKey);
+    const email = sessionStorage.getItem(this.emailKey);
+    const token = sessionStorage.getItem(this.tokenKey);
 
     if (!token) {
-      return of(false); // Devuelve un observable con false si no hay token
+      return of(false);
     }
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Agrega el token Bearer al encabezado
+      'Authorization': `Bearer ${token}`
     });
 
     const requestUrl: string = `${this.backendUrl}/api/users/email/${email}`;
@@ -79,7 +93,7 @@ export class AuthService {
       map((response) => {
         if (response) {
           this.user = response;
-          console.log(this.user);
+          this.role.next(this.user.role.name);
           return true;
         } else {
           return false;

@@ -7,12 +7,15 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
 
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     AuthRoutingModule,
@@ -21,7 +24,8 @@ import { LoginComponent } from './components/login/login.component';
     CommonModule,
     InputTextModule,
     ReactiveFormsModule,
-    RippleModule
+    RippleModule,
+    ToastModule
   ]
 })
 export class AuthModule { }
