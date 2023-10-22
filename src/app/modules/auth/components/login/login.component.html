@@ -1,0 +1,17 @@
+<p-card header="Bienvenido">
+
+  <hr>
+
+  <form [formGroup]="authForm" (ngSubmit)="login()" autocomplete="off">
+    <br>
+    <br>
+    <input type="text" pInputText formControlName="email" placeholder="Email" />
+    <br>
+    <br>
+    <input type="password" pInputText formControlName="password" placeholder="Contraseña" />
+    <br>
+    <br>
+    <p-button type="submit" label="Acceder" [disabled]="authForm.invalid"></p-button>
+  </form>
+
+</p-card>

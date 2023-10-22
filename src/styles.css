@@ -1,3 +1,7 @@
 @import "assets/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+
+* {
+  font-family: sans-serif;
+}
