@@ -18,3 +18,7 @@
   flex: 1;
   margin: 0px 10px;
 }
+
+:host ::ng-deep .p-datepicker table td {
+  padding: 0.01rem !important;
+}

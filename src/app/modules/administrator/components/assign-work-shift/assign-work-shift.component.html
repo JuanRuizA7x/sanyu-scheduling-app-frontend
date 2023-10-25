@@ -1,22 +1,56 @@
 <div class="container">
+
+
   <div class="left-column">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
+
+    <p style="font-weight: bold">Rango de fechas</p>
+
+    <p-calendar
+      class="max-w-full"
+      [(ngModel)]="selectedDateRange"
+      [inline]="true"
+      [minDate]="tomorrowDate"
+      selectionMode="range"
+      [disabledDays]="weekends"
+      [disabledDates]="holidays">
+    </p-calendar>
+
+    <p style="font-weight: bold">Jornada</p>
+
+    <p-dropdown [options]="schedules" [(ngModel)]="selectedSchedule" optionLabel="name"></p-dropdown>
+
   </div>
+
+
   <div class="middle-column">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
+
+    <p style="font-weight: bold">Contratistas disponibles</p>
+
+    <p-table [value]="availableContractors" selectionMode="single" [(selection)]="selectedContractor" dataKey="userId" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Identificación</th>
+              <th>Nombre Completo</th>
+              <th>Email</th>
+              <th>Rol</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-contractor>
+          <tr [pSelectableRow]="contractor">
+              <td>{{contractor.identificationNumber}}</td>
+              <td>{{contractor.firstName}} {{contractor.lastName}}</td>
+              <td>{{contractor.email}}</td>
+              <td>{{contractor.role.roleId}}</td>
+          </tr>
+      </ng-template>
+    </p-table>
+
   </div>
+
+
   <div class="right-column">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
+    <p style="font-weight: bold">Vista previa</p>
   </div>
+
+
 </div>

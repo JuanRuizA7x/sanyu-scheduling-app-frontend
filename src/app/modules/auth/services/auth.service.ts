@@ -12,7 +12,7 @@ import { User } from '../../../models/user.interface';
 })
 export class AuthService {
 
-  private backendUrl: String = environment.backendUrl;
+  private backendUrl: string = environment.backendUrl;
   private user: User | undefined = undefined;
   role = new BehaviorSubject<string | undefined>(undefined);
   private tokenKey: string = 'authToken';

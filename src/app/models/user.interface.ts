@@ -9,6 +9,6 @@ export interface User {
   secondLastName:       string,
   identificationType:   IdentificationType,
   identificationNumber: string,
-  email:                string;
-  role:                 Role;
+  email:                string,
+  role:                 Role
 }
