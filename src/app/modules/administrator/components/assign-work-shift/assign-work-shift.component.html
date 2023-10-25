@@ -1,3 +1,5 @@
+<p-toast></p-toast>
+
 <div class="container">
 
 
@@ -12,12 +14,20 @@
       [minDate]="tomorrowDate"
       selectionMode="range"
       [disabledDays]="weekends"
-      [disabledDates]="holidays">
+      [disabledDates]="holidays"
+      (onSelect)="getAvailableContractors()"
+    >
     </p-calendar>
 
     <p style="font-weight: bold">Jornada</p>
 
-    <p-dropdown [options]="schedules" [(ngModel)]="selectedSchedule" optionLabel="name"></p-dropdown>
+    <p-dropdown
+    [options]="schedules"
+    [(ngModel)]="selectedSchedule"
+    optionLabel="name"
+    (onChange)="getAvailableContractors()"
+    >
+    </p-dropdown>
 
   </div>
 
@@ -26,30 +36,88 @@
 
     <p style="font-weight: bold">Contratistas disponibles</p>
 
-    <p-table [value]="availableContractors" selectionMode="single" [(selection)]="selectedContractor" dataKey="userId" [tableStyle]="{'min-width': '50rem'}">
+    <p-table
+      #dt1
+      [value]="availableContractors"
+      dataKey="userId"
+      [rows]="8"
+      [showCurrentPageReport]="true"
+      [paginator]="true"
+      currentPageReportTemplate="Total registros: {totalRecords}"
+      [globalFilterFields]="['identificationNumber']"
+      selectionMode="single"
+      [(selection)]="selectedContractor"
+      [tableStyle]="{'min-width': '50rem'}"
+    >
+
+      <ng-template pTemplate="caption">
+        <div class="flex align-right">
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input #searchInput pInputText type="text" (input)="dt1.filterGlobal(searchInput.value, 'startsWith')" placeholder="Número de identificación" />
+            </span>
+        </div>
+      </ng-template>
+
       <ng-template pTemplate="header">
           <tr>
               <th>Identificación</th>
-              <th>Nombre Completo</th>
+              <th>Nombre</th>
               <th>Email</th>
               <th>Rol</th>
           </tr>
       </ng-template>
+
       <ng-template pTemplate="body" let-contractor>
           <tr [pSelectableRow]="contractor">
-              <td>{{contractor.identificationNumber}}</td>
+              <td>{{contractor.identificationType.code}} {{contractor.identificationNumber}}</td>
               <td>{{contractor.firstName}} {{contractor.lastName}}</td>
               <td>{{contractor.email}}</td>
-              <td>{{contractor.role.roleId}}</td>
+              <td>{{contractor.role.name}}</td>
           </tr>
       </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No se encontraron contratistas.</td>
+        </tr>
+      </ng-template>
+
     </p-table>
 
   </div>
 
 
   <div class="right-column">
+
     <p style="font-weight: bold">Vista previa</p>
+
+    <p-card>
+
+      <p class="m-0">
+        <span style="font-weight: bold" >Contratista: </span>
+        {{selectedContractor?.firstName}} {{selectedContractor?.lastName}}
+      </p>
+
+      <p class="m-0">
+        <span style="font-weight: bold" >Fecha inicial: </span>
+        {{ selectedDateRange?.[0] | date:'dd/MM/yyyy' }}
+      </p>
+
+      <p class="m-0">
+        <span style="font-weight: bold" >Fecha final: </span>
+        {{ selectedDateRange?.[1] | date:'dd/MM/yyyy' }}
+      </p>
+
+      <p class="m-0">
+        <span style="font-weight: bold" >Jornada: </span>
+        {{selectedSchedule?.name}}
+      </p>
+
+      <p-button label="Asignar" [disabled]="selectedContractor ? false: true" (onClick)="assignWorkShifts()"></p-button>
+
+    </p-card>
+
   </div>
 
 

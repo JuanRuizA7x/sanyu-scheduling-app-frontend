@@ -19,6 +19,18 @@
   margin: 0px 10px;
 }
 
+.align-right {
+  text-align: right;
+}
+
 :host ::ng-deep .p-datepicker table td {
   padding: 0.01rem !important;
+}
+
+:host ::ng-deep input {
+  width: 250px;
+}
+
+:host ::ng-deep .p-card{
+  width: 320px;
 }

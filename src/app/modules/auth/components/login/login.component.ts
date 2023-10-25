@@ -57,7 +57,7 @@ export class LoginComponent {
     }
   }
 
-  showBadCredentialsMessage() {
+  showBadCredentialsMessage(): void {
     this.messageService.add(
       {
         severity: 'error',
