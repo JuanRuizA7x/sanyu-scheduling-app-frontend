@@ -1,3 +1,20 @@
-<p>generate-report works!</p>
+<p-toast></p-toast>
 
-<p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" dateFormat="dd.mm.yy" [inputStyle]="{'width':'95%'}" [inputStyle]="{'width':'95%'}"></p-calendar>
+<p-card>
+
+  <p-calendar
+    [(ngModel)]="selectedDate"
+    [showIcon]="true"
+    selectionMode="single"
+    [disabledDays]="weekends"
+    [disabledDates]="holidays"
+    placeholder="Seleccione una fecha"
+  >
+  </p-calendar>
+
+  <br>
+  <br>
+
+  <p-button label="Generar" [disabled]="selectedDate ? false: true" (onClick)="generateReport()"></p-button>
+
+</p-card>

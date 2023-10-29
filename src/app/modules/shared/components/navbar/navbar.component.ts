@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit {
       { label: 'Asignar turno', icon: PrimeIcons.CALENDAR, routerLink: '/administrator/assign-work-shift' },
       { label: 'Ampliar turno', icon: PrimeIcons.CLOCK, routerLink: '/administrator/extend-schedule' },
       { label: 'Cargar archivo', icon: PrimeIcons.UPLOAD, routerLink: '/administrator/upload-file' },
-      { label: 'Generar informe', icon: PrimeIcons.FILE, routerLink: '/administrator/generate-report' }
+      { label: 'Generar reporte', icon: PrimeIcons.FILE, routerLink: '/administrator/generate-report' }
     ];
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { HolidayService } from '../../services/holiday.service';
 import { ScheduleService } from '../../services/schedule.service';
 import { WorkShiftService } from '../../services/work-shift.service';
-import { MessageService } from 'primeng/api';
 import { Schedule } from 'src/app/models/schedule.interface';
 import { User } from 'src/app/models/user.interface';
 import { WorkShiftResponse } from 'src/app/models/work-shift-response.interface';
