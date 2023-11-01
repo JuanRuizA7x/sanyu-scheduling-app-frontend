@@ -4,8 +4,10 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -29,8 +31,10 @@ import { GenerateReportComponent } from './components/generate-report/generate-r
     CardModule,
     CommonModule,
     DropdownModule,
+    FileUploadModule,
     FormsModule,
     InputTextModule,
+    NgxSpinnerModule,
     RippleModule,
     TableModule,
     ToastModule

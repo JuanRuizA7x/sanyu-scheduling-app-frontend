@@ -1,1 +1,29 @@
-<p>upload-file works!</p>
+<p-toast></p-toast>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#008c44" type="ball-clip-rotate" [fullScreen]="true">
+  <p style="color: white"> Procesando archivo... </p>
+</ngx-spinner>
+
+<p-card header="Seleccione un archivo .csv">
+
+  <p-fileUpload #fileUploadController chooseLabel="Cargar" uploadLabel="Procesar" [showCancelButton]="false" accept="text/csv"
+    [multiple]="false" [customUpload]="true" (uploadHandler)="uploadFile($event, fileUploadController)">
+
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFile">
+        <li>{{ uploadedFile.name }} - {{ uploadedFile.size }} bytes</li>
+      </ul>
+    </ng-template>
+
+  </p-fileUpload>
+
+</p-card>
+
+<br>
+<br>
+
+<div class="center-button">
+
+  <p-button label="Descargar plantilla" (onClick)="generateExampleTemplate()"></p-button>
+
+</div>

@@ -15,6 +15,7 @@ import { roles } from '../../../../models/roles.const';
 export class LoginComponent {
 
   authForm!: FormGroup;
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -37,7 +38,11 @@ export class LoginComponent {
     const password = this.authForm.get('password')?.value;
 
     if (email && password) {
+
+      this.loading = true;
+
       this.authService.login(email, password).subscribe((success) => {
+
         if (success) {
 
           const userRole = this.authService.getUserRole();
@@ -50,10 +55,14 @@ export class LoginComponent {
             this.router.navigateByUrl('/auth/logout');
           }
 
+          this.loading = false;
+
         } else {
           this.showBadCredentialsMessage()
         }
+
       });
+
     }
   }
 

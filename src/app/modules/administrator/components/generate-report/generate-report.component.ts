@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { HolidayService } from '../../services/holiday.service';
 import { ReportService } from '../../services/report.service';
-import { catchError, pipe } from 'rxjs';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'administrator-generate-report',
@@ -14,6 +14,7 @@ export class GenerateReportComponent implements OnInit {
 
   weekends: number[];
   holidays: Date[] = [];
+  loading: boolean = false;
 
   selectedDate: Date | undefined;
 
@@ -44,6 +45,8 @@ export class GenerateReportComponent implements OnInit {
 
     if(this.selectedDate) {
 
+      this.loading = true;
+
       this.reportService.generateReport(this.selectedDate)
       .pipe(
         catchError((error) => {
@@ -51,7 +54,11 @@ export class GenerateReportComponent implements OnInit {
           return [];
         })
       ).subscribe(
-        response => this.showMessage('success', 'Reporte generado', 'Revisa tu email')
+        response => {
+          this.loading = false;
+          this.selectedDate = undefined;
+          this.showMessage('success', 'Reporte generado', 'Revisa tu email');
+        }
       );
 
     }

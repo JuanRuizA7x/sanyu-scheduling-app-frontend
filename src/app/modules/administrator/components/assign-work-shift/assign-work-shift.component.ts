@@ -20,6 +20,7 @@ export class AssignWorkShiftComponent implements OnInit {
   tomorrowDate: Date;
   weekends: number[];
   holidays: Date[] = [];
+  loading: boolean = false;
 
   schedules: Schedule[] = [];
   availableContractors: User[] = [];
@@ -102,6 +103,9 @@ export class AssignWorkShiftComponent implements OnInit {
       this.selectedSchedule?.scheduleId &&
       this.selectedContractor?.userId
     ) {
+
+      this.loading = true;
+
       this.workShiftService.assignWorkShifts(
         this.selectedDateRange[0],
         this.selectedDateRange[1],
@@ -109,10 +113,12 @@ export class AssignWorkShiftComponent implements OnInit {
         this.selectedContractor?.userId
       ).subscribe(
         (assignedWorkShiftsCount: WorkShiftResponse) => {
+          this.loading = false;
           this.showAssignedWorkShiftsCount(assignedWorkShiftsCount.affectedRows);
           this.cleanSelectedObjects();
         }
       );
+
     }
 
   }

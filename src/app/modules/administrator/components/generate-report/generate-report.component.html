@@ -15,6 +15,6 @@
   <br>
   <br>
 
-  <p-button label="Generar" [disabled]="selectedDate ? false: true" (onClick)="generateReport()"></p-button>
+  <p-button label="Generar" [loading]="loading" [disabled]="selectedDate ? false: true" (onClick)="generateReport()"></p-button>
 
 </p-card>

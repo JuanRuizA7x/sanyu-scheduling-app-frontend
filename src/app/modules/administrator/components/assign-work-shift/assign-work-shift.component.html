@@ -114,7 +114,7 @@
         {{selectedSchedule?.name}}
       </p>
 
-      <p-button label="Asignar" [disabled]="selectedContractor ? false: true" (onClick)="assignWorkShifts()"></p-button>
+      <p-button label="Asignar" [loading]="loading" [disabled]="selectedContractor ? false: true" (onClick)="assignWorkShifts()"></p-button>
 
     </p-card>
 

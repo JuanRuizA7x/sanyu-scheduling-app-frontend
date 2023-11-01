@@ -13,7 +13,7 @@
     <input type="password" pInputText formControlName="password" placeholder="Contraseña" />
     <br>
     <br>
-    <p-button type="submit" label="Acceder" [disabled]="authForm.invalid"></p-button>
+    <p-button type="submit" label="Acceder" [loading]="loading" [disabled]="authForm.invalid"></p-button>
   </form>
 
 </p-card>
