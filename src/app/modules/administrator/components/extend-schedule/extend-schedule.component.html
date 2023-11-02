@@ -1,11 +1,81 @@
 <div class="container">
+
+
   <div class="left-column">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
+
+    <p style="font-weight: bold">Seleccione un contratista</p>
+
+    <p-dropdown
+      [options]="contractors"
+      [(ngModel)]="selectedContractor"
+      [filter]="true"
+      [showClear]="true"
+      emptyMessage="Busque por número de identificación"
+      emptyFilterMessage=" "
+      (onFilter)="getContractorsByIdentificationNumberLike($event)"
+    >
+      <ng-template pTemplate="selectedItem">
+          <div class="flex align-items-center gap-2" *ngIf="selectedContractor">
+              <div>{{selectedContractor.identificationType.code}} {{selectedContractor.identificationNumber}}</div>
+          </div>
+      </ng-template>
+      <ng-template let-contractor pTemplate="item">
+          <div class="flex align-items-center gap-2">
+              <div>{{contractor.identificationType.code}} {{contractor.identificationNumber}}</div>
+          </div>
+      </ng-template>
+    </p-dropdown>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <p-card *ngIf="selectedContractor">
+
+      <p style="font-weight: bold">Contratista seleccionado</p>
+
+      <hr>
+
+      <p class="m-0">
+        <span style="font-weight: bold" >Identificación: </span>
+        {{selectedContractor.identificationType.code}} {{selectedContractor.identificationNumber}}
+      </p>
+
+      <p class="m-0">
+        <span style="font-weight: bold" >Nombre: </span>
+        {{selectedContractor.firstName}} {{selectedContractor.lastName}}
+      </p>
+
+      <p class="m-0">
+        <span style="font-weight: bold" >Email: </span>
+        {{selectedContractor.email}}
+      </p>
+
+      <p class="m-0">
+        <span style="font-weight: bold" >Rol: </span>
+        {{selectedContractor.role.name}}
+      </p>
+
+    </p-card>
+
   </div>
+
+
   <div class="middle-column">
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
   </div>
+
+
   <div class="right-column">
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
   </div>
+
+
 </div>

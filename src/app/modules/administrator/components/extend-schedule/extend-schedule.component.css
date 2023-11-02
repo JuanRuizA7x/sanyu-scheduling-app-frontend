@@ -18,3 +18,11 @@
   flex: 1;
   margin: 0px 10px;
 }
+
+:host ::ng-deep .p-dropdown {
+  width: 320px;
+}
+
+:host ::ng-deep .p-card{
+  width: 320px;
+}

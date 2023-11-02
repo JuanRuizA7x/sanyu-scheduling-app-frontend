@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment.dev';
 import { Observable, throwError } from 'rxjs';
-import { CsvFileResponse } from 'src/app/models/csv-file-response.interface';
+import { User } from 'src/app/models/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UploadFileService {
+export class UserService {
 
   private backendUrl: string = environment.backendUrl;
   private tokenKey: string = 'authToken';
@@ -17,25 +17,25 @@ export class UploadFileService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  generateReport(csvFile: File): Observable<CsvFileResponse> {
+  getContractorsByIdentificationNumberLike(identificationNumber: string): Observable<User[]> {
 
-    const requestUrl: string = `${this.backendUrl}/api/administrator/upload-csv-file`;
+    const requestUrl: string = `${this.backendUrl}/api/administrator/contractors/identification-number-like`;
     const token = sessionStorage.getItem(this.tokenKey);
     const email = sessionStorage.getItem(this.emailKey);
 
     if (!token || !email) {
       this.router.navigateByUrl('/auth/logout');
       return throwError(() => new Error('Token not available'));
-    }
+    };
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    const formData = new FormData();
-    formData.append('csvFile', csvFile);
+    const requestParams = new HttpParams()
+    .set('identificationNumber', identificationNumber);
 
-    return this.httpClient.post<CsvFileResponse>(requestUrl, formData, { headers });
+  return this.httpClient.get<User[]>(requestUrl, { headers, params: requestParams });
 
   }
 

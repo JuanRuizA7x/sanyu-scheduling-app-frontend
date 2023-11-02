@@ -111,7 +111,7 @@
 
       <p class="m-0">
         <span style="font-weight: bold" >Jornada: </span>
-        {{selectedSchedule?.name}}
+        {{selectedSchedule?.name}} ({{selectedSchedule?.startTime}} - {{selectedSchedule?.endTime}})
       </p>
 
       <p-button label="Asignar" [loading]="loading" [disabled]="selectedContractor ? false: true" (onClick)="assignWorkShifts()"></p-button>
