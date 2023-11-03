@@ -1,3 +1,5 @@
+<p-toast></p-toast>
+
 <div class="container">
 
 
@@ -5,35 +7,37 @@
 
     <p style="font-weight: bold">Seleccione un contratista</p>
 
-    <p-dropdown
-      [options]="contractors"
-      [(ngModel)]="selectedContractor"
-      [filter]="true"
-      [showClear]="true"
-      emptyMessage="Busque por número de identificación"
-      emptyFilterMessage=" "
-      (onFilter)="getContractorsByIdentificationNumberLike($event)"
-    >
-      <ng-template pTemplate="selectedItem">
-          <div class="flex align-items-center gap-2" *ngIf="selectedContractor">
-              <div>{{selectedContractor.identificationType.code}} {{selectedContractor.identificationNumber}}</div>
-          </div>
-      </ng-template>
-      <ng-template let-contractor pTemplate="item">
-          <div class="flex align-items-center gap-2">
-              <div>{{contractor.identificationType.code}} {{contractor.identificationNumber}}</div>
-          </div>
-      </ng-template>
-    </p-dropdown>
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        #txtInput
+        type="text"
+        pInputText
+        (keyup)="getContractorsByIdentificationNumberLike(txtInput.value)"
+        placeholder="Número de identificación"
+      />
+    </span>
 
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
+    <p-listbox
+      [options]="contractors"
+      [(ngModel)]="selectedContractor"
+      [style]="{ width: '320px' }"
+      [listStyle]="{'height': '220px'}"
+      (onClick)="getWorkShiftsByUserIdAndDateRange()"
+      *ngIf="contractors.length > 0"
+    >
+
+      <ng-template let-contractor pTemplate="item">
+        <div class="flex align-items-center gap-2">
+            <div>{{contractor.identificationType.code}} {{contractor.identificationNumber}}</div>
+        </div>
+      </ng-template>
+
+    </p-listbox>
+
     <br>
     <br>
 
@@ -69,12 +73,62 @@
 
 
   <div class="middle-column">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
+
+    <p style="font-weight: bold">Turnos asignados</p>
+
+    <full-calendar [options]="calendarOptions"></full-calendar>
+
   </div>
 
 
   <div class="right-column">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
+
+    <p style="font-weight: bold">Ampliar horario</p>
+
+    <div *ngIf="selectedWorkShift">
+
+      <p-messages
+        [(value)]="scheduleExtensionAlreadyExists"
+        [enableService]="false"
+        [closable]="false"
+        *ngIf="selectedWorkShift.scheduleExtensions.length > 0"
+      ></p-messages>
+
+      <p-card *ngIf="selectedWorkShift.scheduleExtensions.length == 0">
+
+        <p style="font-weight: bold">Hora de inicio</p>
+        <p-inputMask
+          mask="99:99"
+          [style]="{ width: '278px' }"
+          [(ngModel)]="startTime"
+          placeholder="HH:MM"
+        ></p-inputMask>
+
+        <p style="font-weight: bold">Hora de finalización</p>
+        <p-inputMask
+          mask="99:99"
+          [style]="{ width: '278px' }"
+          [(ngModel)]="endTime"
+          placeholder="HH:MM"
+        ></p-inputMask>
+
+        <p style="font-weight: bold">Razón</p>
+        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="reason" [autoResize]="true" maxlength="500"></textarea>
+
+        <br>
+        <br>
+
+        <p-button
+          label="Asignar"
+          [loading]="loading"
+          [disabled]="(startTime && endTime && reason) ? false: true"
+          (onClick)="extendSchedule()"
+        ></p-button>
+
+      </p-card>
+
+    </div>
+
   </div>
 
 

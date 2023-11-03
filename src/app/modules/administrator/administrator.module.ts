@@ -6,7 +6,11 @@ import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule } from '@angular/forms';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
@@ -33,7 +37,11 @@ import { GenerateReportComponent } from './components/generate-report/generate-r
     DropdownModule,
     FileUploadModule,
     FormsModule,
+    FullCalendarModule,
+    InputMaskModule,
+    InputTextareaModule,
     InputTextModule,
+    ListboxModule,
     NgxSpinnerModule,
     RippleModule,
     TableModule,

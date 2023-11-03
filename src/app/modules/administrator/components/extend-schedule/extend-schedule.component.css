@@ -19,7 +19,7 @@
   margin: 0px 10px;
 }
 
-:host ::ng-deep .p-dropdown {
+:host ::ng-deep input {
   width: 320px;
 }
 

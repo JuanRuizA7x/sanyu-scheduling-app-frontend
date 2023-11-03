@@ -7,6 +7,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { User } from 'src/app/models/user.interface';
 import { WorkShiftRequest } from 'src/app/models/work-shift-request.interface';
 import { WorkShiftResponse } from 'src/app/models/work-shift-response.interface';
+import { WorkShift } from 'src/app/models/work-shift.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,29 @@ export class WorkShiftService {
     return this.httpClient.post<WorkShiftResponse>(requestUrl, requestBody, { headers }).pipe(
       catchError(error => throwError(() => new Error(error)))
     );
+
+  }
+
+  getWorkShiftsByUserIdAndDateRange(userId: number, startDate: string, endDate: string): Observable<WorkShift[]> {
+
+    const requestUrl: string = `${this.backendUrl}/api/administrator/work-shifts/user-id-and-date-range`;
+    const token = sessionStorage.getItem(this.tokenKey);
+
+    if (!token) {
+      this.router.navigateByUrl('/auth/logout');
+      return throwError(() => new Error('Token not available'));
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const requestParams = new HttpParams()
+      .set('userId', userId)
+      .set('startDate', startDate)
+      .set('endDate', endDate);
+
+    return this.httpClient.get<WorkShift[]>(requestUrl, { headers, params: requestParams });
 
   }
 
