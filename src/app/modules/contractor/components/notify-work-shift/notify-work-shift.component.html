@@ -1,10 +1,81 @@
+<p-toast></p-toast>
+
 <div class="container">
+
+
   <div class="left-column">
   </div>
+
+
   <div class="middle-column">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
+
+    <p style="font-weight: bold">Turnos asignados</p>
+
+    <full-calendar [options]="calendarOptions"></full-calendar>
+
   </div>
+
   <div class="right-column">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis veniam natus, fugit voluptatibus laudantium corrupti ducimus laboriosam consectetur dolorum impedit consequatur mollitia labore ratione, voluptas id minima vitae corporis? Consequatur.</p>
+
+    <div *ngIf="selectedWorkShift">
+
+      <p style="font-weight: bold">Turno seleccionado</p>
+
+      <p-card>
+
+        <p class="m-0">
+          <span style="font-weight: bold" >Fecha: </span>
+          {{ selectedWorkShift.date| date:'dd/MM/yyyy' }}
+        </p>
+
+        <p class="m-0">
+          <span style="font-weight: bold" >Hora de inicio: </span>
+          {{ selectedWorkShift.schedule.startTime }}
+        </p>
+
+        <p class="m-0">
+          <span style="font-weight: bold" >Hora de finalización: </span>
+          {{ selectedWorkShift.schedule.endTime }}
+        </p>
+
+        <p-button
+          *ngIf="!selectedWorkShift.isStarted"
+          label="Iniciar turno"
+          [loading]="loading"
+          [disabled]="selectedWorkShift.date != currentDate"
+          (onClick)="markWorkShiftAsStarted()"
+        ></p-button>
+
+      </p-card>
+
+      <div *ngIf="selectedWorkShift.scheduleExtensions.length > 0">
+
+        <p style="font-weight: bold">Extensión de horario</p>
+
+        <p-card>
+
+          <p class="m-0">
+            <span style="font-weight: bold" >Hora de inicio: </span>
+            {{ selectedWorkShift.scheduleExtensions[0].startTime }}
+          </p>
+
+          <p class="m-0">
+            <span style="font-weight: bold" >Hora de finalización: </span>
+            {{ selectedWorkShift.scheduleExtensions[0].endTime }}
+          </p>
+
+          <p class="m-0">
+            <span style="font-weight: bold" >Razón: </span>
+            {{ selectedWorkShift.scheduleExtensions[0].reason }}
+          </p>
+
+        </p-card>
+
+      </div>
+
+    </div>
+
   </div>
+
+
 </div>

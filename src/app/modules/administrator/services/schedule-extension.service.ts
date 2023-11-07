@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment.dev';
 import { Observable, throwError } from 'rxjs';
-import { ScheduleExtensionRequest } from 'src/app/models/schedule-extension-request.interface';
+import { ScheduleExtensionRequest } from '../../../models/schedule-extension-request.interface';
 
 @Injectable({
   providedIn: 'root'

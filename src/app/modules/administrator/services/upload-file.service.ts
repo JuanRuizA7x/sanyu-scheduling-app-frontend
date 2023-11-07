@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment.dev';
 import { Observable, throwError } from 'rxjs';
-import { CsvFileResponse } from 'src/app/models/csv-file-response.interface';
+import { CsvFileResponse } from '../../../models/csv-file-response.interface';
 
 @Injectable({
   providedIn: 'root'

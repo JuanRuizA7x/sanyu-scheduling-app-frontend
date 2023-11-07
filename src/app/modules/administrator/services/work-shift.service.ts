@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment.dev';
 import { Observable, catchError, throwError } from 'rxjs';
-import { User } from 'src/app/models/user.interface';
-import { WorkShiftRequest } from 'src/app/models/work-shift-request.interface';
-import { WorkShiftResponse } from 'src/app/models/work-shift-response.interface';
-import { WorkShift } from 'src/app/models/work-shift.interface';
+import { User } from '../../../models/user.interface';
+import { WorkShiftRequest } from '../../../models/work-shift-request.interface';
+import { WorkShiftResponse } from '../../../models/work-shift-response.interface';
+import { WorkShift } from '../../../models/work-shift.interface';
 
 @Injectable({
   providedIn: 'root'

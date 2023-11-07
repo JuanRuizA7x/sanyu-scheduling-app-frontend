@@ -53,9 +53,7 @@ export class ExtendScheduleComponent {
     private scheduleExtensionService: ScheduleExtensionService,
     private userService: UserService,
     private workShiftService: WorkShiftService
-  ) {
-    this.showMessage('success', 'La ampliación de horario se realizó exitosamente');
-  }
+  ) {}
 
   getContractorsByIdentificationNumberLike(value: string): void {
 
