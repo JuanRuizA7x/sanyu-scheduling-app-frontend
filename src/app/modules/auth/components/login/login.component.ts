@@ -28,8 +28,8 @@ export class LoginComponent {
 
   createForm(): void {
     this.authForm = this.formBuilder.group({
-      email: ['juan.ruiz.22.03.00@gmail.com', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
-      password: ['12345', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]]
+      email: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
+      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]]
     });
   }
 

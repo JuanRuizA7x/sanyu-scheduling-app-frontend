@@ -38,6 +38,14 @@
           {{ selectedWorkShift.schedule.endTime }}
         </p>
 
+
+        <p-tag *ngIf="selectedWorkShift.isStarted" severity="primary" value="Turno iniciado"></p-tag>
+
+        <p-tag *ngIf="!selectedWorkShift.isStarted" severity="warning" value="Turno sin iniciar"></p-tag>
+
+        <br>
+        <br>
+
         <p-button
           *ngIf="!selectedWorkShift.isStarted"
           label="Iniciar turno"
